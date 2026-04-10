@@ -1,16 +1,113 @@
-# React + Vite
+# Finance Tracker
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Aplicación web de finanzas personales con autenticación, CRUD completo de transacciones y dashboard con gráficas interactivas.
 
-Currently, two official plugins are available:
+![Finance Tracker Dashboard](./screenshots/dashboard.png)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Demo
 
-## React Compiler
+[finance-tracker-cunywtj0p-kevins-projects-31ae7e0d.vercel.app](https://finance-tracker-cunywtj0p-kevins-projects-31ae7e0d.vercel.app)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Características
 
-## Expanding the ESLint configuration
+- Autenticación completa con JWT (registro e inicio de sesión)
+- CRUD completo de transacciones (crear, leer, editar, eliminar)
+- Dashboard con balance, ingresos y gastos en tiempo real
+- Gráfica de barras: ingresos vs gastos por mes
+- Gráfica de dona: distribución de gastos por categoría
+- API REST propia con Node.js y Express
+- Base de datos PostgreSQL
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Stack tecnológico
+
+**Frontend:** React · Vite · React Router DOM · Axios · Recharts  
+**Backend:** Node.js · Express · JWT · bcrypt  
+**Base de datos:** PostgreSQL  
+**Deploy:** Vercel (frontend) · Railway (backend + DB)
+
+## Instalación local
+
+### Prerrequisitos
+- Node.js 18+
+- PostgreSQL instalado localmente
+
+### Backend
+
+```bash
+git clone https://github.com/Kevin30042001/finance-tracker-api.git
+cd finance-tracker-api
+npm install
+cp .env.example .env
+# Editar .env con tus credenciales de PostgreSQL
+npm run dev
+```
+
+### Frontend
+
+```bash
+git clone https://github.com/Kevin30042001/finance-tracker.git
+cd finance-tracker
+npm install
+npm run dev
+```
+
+### Variables de entorno — Backend
+
+```env
+PORT=3000
+DB_HOST=localhost
+DB_PORT=5432
+DB_NAME=finance_tracker
+DB_USER=postgres
+DB_PASSWORD=tu_contraseña
+JWT_SECRET=tu_clave_secreta
+```
+
+## Estructura del proyecto
+
+### Backend
+finance-tracker-api/
+├── src/
+│   ├── controllers/
+│   │   ├── authController.js
+│   │   └── transactionController.js
+│   ├── routes/
+│   │   ├── authRoutes.js
+│   │   └── transactionRoutes.js
+│   ├── middleware/
+│   │   └── authMiddleware.js
+│   ├── db/
+│   │   └── index.js
+│   └── index.js
+
+### Frontend
+finance-tracker/
+├── src/
+│   ├── components/
+│   │   ├── BarChart.jsx
+│   │   └── DonutChart.jsx
+│   ├── context/
+│   │   └── AuthContext.jsx
+│   ├── pages/
+│   │   ├── Login.jsx
+│   │   ├── Register.jsx
+│   │   └── Dashboard.jsx
+│   ├── services/
+│   │   └── api.js
+│   └── App.jsx
+
+## API Reference
+
+| Método | Endpoint | Descripción | Auth |
+|--------|----------|-------------|------|
+| POST | /api/auth/register | Crear cuenta | No |
+| POST | /api/auth/login | Iniciar sesión | No |
+| GET | /api/transactions | Listar transacciones | Sí |
+| POST | /api/transactions | Crear transacción | Sí |
+| PUT | /api/transactions/:id | Editar transacción | Sí |
+| DELETE | /api/transactions/:id | Eliminar transacción | Sí |
+| GET | /api/transactions/summary | Resumen por categoría | Sí |
+
+## Autor
+
+**Kevin** — [@Kevin30042001](https://github.com/Kevin30042001)
