@@ -7,20 +7,20 @@ import {
   ResponsiveContainer
 } from 'recharts';
 
+// Colores para cada categoría de gasto
 const COLORS = ['#2563eb', '#16a34a', '#dc2626', '#d97706', '#7c3aed', '#db2777', '#0891b2', '#65a30d'];
 
+// Recibe las transacciones y muestra la distribución de gastos por categoría
 const DonutChart = ({ transactions }) => {
 
+  // Filtramos solo gastos y los agrupamos por categoría
   const expensesByCategory = transactions
     .filter(t => t.type === 'expense')
     .reduce((acc, t) => {
-      // Normalizamos para agrupar correctamente sin importar mayúsculas
-      const category = t.category.charAt(0).toUpperCase() + t.category.slice(1).toLowerCase();
-
-      if (!acc[category]) {
-        acc[category] = { name: category, value: 0 };
+      if (!acc[t.category]) {
+        acc[t.category] = { name: t.category, value: 0 };
       }
-      acc[category].value += parseFloat(t.amount);
+      acc[t.category].value += parseFloat(t.amount);
       return acc;
     }, {});
 
