@@ -14,15 +14,17 @@ const COLORS = ['#2563eb', '#16a34a', '#dc2626', '#d97706', '#7c3aed', '#db2777'
 const DonutChart = ({ transactions }) => {
 
   // Filtramos solo gastos y los agrupamos por categoría
-  const expensesByCategory = transactions
-    .filter(t => t.type === 'expense')
-    .reduce((acc, t) => {
-      if (!acc[t.category]) {
-        acc[t.category] = { name: t.category, value: 0 };
-      }
-      acc[t.category].value += parseFloat(t.amount);
-      return acc;
-    }, {});
+const expensesByCategory = transactions
+  .filter(t => t.type === 'expense')
+  .reduce((acc, t) => {
+    const category = t.category.charAt(0).toUpperCase() + t.category.slice(1).toLowerCase();
+
+    if (!acc[category]) {
+      acc[category] = { name: category, value: 0 };
+    }
+    acc[category].value += parseFloat(t.amount);
+    return acc;
+  }, {});
 
   const data = Object.values(expensesByCategory);
 
