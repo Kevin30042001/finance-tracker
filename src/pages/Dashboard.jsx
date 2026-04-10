@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import api from '../services/api';
+import BarChart from '../components/BarChart';
+import DonutChart from '../components/DonutChart';
 
 const Dashboard = () => {
   const { user, logout } = useAuth();
@@ -15,7 +17,6 @@ const Dashboard = () => {
   const [description, setDescription] = useState('');
   const [date, setDate] = useState('');
 
-  // Cargar transacciones al montar el componente
   useEffect(() => {
     fetchTransactions();
   }, []);
@@ -38,7 +39,6 @@ const Dashboard = () => {
         type, category, amount: parseFloat(amount), description, date
       });
       setTransactions([response.data, ...transactions]);
-      // Limpiar formulario
       setCategory('');
       setAmount('');
       setDescription('');
@@ -57,7 +57,6 @@ const Dashboard = () => {
     }
   };
 
-  // Calcular totales
   const totalIncome = transactions
     .filter(t => t.type === 'income')
     .reduce((sum, t) => sum + parseFloat(t.amount), 0);
@@ -96,6 +95,18 @@ const Dashboard = () => {
         <div style={{ ...styles.summaryCard, borderTop: '4px solid #dc2626' }}>
           <p style={styles.summaryLabel}>Gastos</p>
           <p style={{ ...styles.summaryAmount, color: '#dc2626' }}>${totalExpenses.toFixed(2)}</p>
+        </div>
+      </div>
+
+      {/* Gráficas */}
+      <div style={styles.chartsGrid}>
+        <div style={styles.card}>
+          <h2 style={styles.cardTitle}>Ingresos vs Gastos por mes</h2>
+          <BarChart transactions={transactions} />
+        </div>
+        <div style={styles.card}>
+          <h2 style={styles.cardTitle}>Gastos por categoría</h2>
+          <DonutChart transactions={transactions} />
         </div>
       </div>
 
@@ -256,6 +267,12 @@ const styles = {
     fontSize: '1.5rem',
     fontWeight: 'bold',
     margin: 0,
+  },
+  chartsGrid: {
+    display: 'grid',
+    gridTemplateColumns: '1fr 1fr',
+    gap: '1.5rem',
+    marginBottom: '1.5rem',
   },
   mainGrid: {
     display: 'grid',
