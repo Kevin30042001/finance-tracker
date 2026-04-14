@@ -6,7 +6,7 @@ Aplicación web de finanzas personales con autenticación, CRUD completo de tran
 
 ## Demo
 
-[finance-tracker-cunywtj0p-kevins-projects-31ae7e0d.vercel.app](https://finance-tracker-cunywtj0p-kevins-projects-31ae7e0d.vercel.app)
+[https://finance-tracker-delta-sooty.vercel.app/](https://finance-tracker-delta-sooty.vercel.app/)
 
 ## Características
 
